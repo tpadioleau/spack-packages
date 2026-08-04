@@ -460,8 +460,11 @@ class Kokkos(CMakePackage, CudaPackage, ROCmPackage):
             major_version = 5
         else:
             major_version = int(str(spec.version.up_to(1)))
-        options.append(
-            from_variant(f"Kokkos_ENABLE_DEPRECATED_CODE_{major_version}", "deprecated_code")
+
+        # only do something if it was actually specified by the user, otherwise just use whatever is the default in Kokkos
+        if self.spec.variants["deprecated_code"].set_by_user:
+            options.append(
+                from_variant(f"Kokkos_ENABLE_DEPRECATED_CODE_{major_version}", "deprecated_code")
         )
 
         spack_microarches = []
