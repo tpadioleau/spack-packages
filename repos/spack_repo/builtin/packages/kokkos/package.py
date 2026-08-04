@@ -457,7 +457,7 @@ class Kokkos(CMakePackage, CudaPackage, ROCmPackage):
 
         #TODO last release before new major: update what develop points to
         if spec.version == Version("develop"):
-            major_version = int(5)
+            major_version = 5
         else:
             major_version = int(str(spec.version.up_to(1)))
         options.append(
