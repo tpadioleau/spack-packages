@@ -158,7 +158,6 @@ class Kokkos(CMakePackage, CudaPackage, ROCmPackage):
         "deprecated_code": [False, "@:4", "Whether to enable deprecated code"],
         "hpx_async_dispatch": [False, "@:4", "Whether HPX supports asynchronous dispath"],
         "tuning": [False, None, "Create bindings for tuning tools"],
-        "tests": [False, None, "Build for tests"],
     }
 
     conflicts("~debug_dualview_modify_check", when="@4.7:")  # always enable from 4.7.00
@@ -518,6 +517,8 @@ class Kokkos(CMakePackage, CudaPackage, ROCmPackage):
         self.append_args("ENABLE", self.devices_variants.keys(), options)
         self.append_args("ENABLE", self.options_variants.keys(), options)
         self.append_args("ENABLE", self.tpls_variants.keys(), options)
+
+        options.append(self.define("Kokkos_ENABLE_TESTS", self.run_tests))
 
         for tpl in self.tpls_variants:
             if spec.satisfies(f"+{tpl}"):

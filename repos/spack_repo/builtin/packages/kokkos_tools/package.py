@@ -32,6 +32,9 @@ class KokkosTools(CMakePackage):
     depends_on("mpi", when="+mpi")
     depends_on("papi", when="+papi")
 
+    depends_on("googletest@1.14:1", type="test")
+    patch("external-gtest.patch", when="@5.2")
+
     def cmake_args(self):
         # The plugins are intentionally disabled the time to properly introduce new variants
         # with associated dependencies.
@@ -43,7 +46,7 @@ class KokkosTools(CMakePackage):
             self.define("KokkosTools_ENABLE_VARIORUM", False),
             self.define("KokkosTools_ENABLE_EXAMPLES", False),
             self.define("KokkosTools_ENABLE_SINGLE", False),
-            self.define("KokkosTools_ENABLE_TESTS", False),
+            self.define("KokkosTools_ENABLE_TESTS", self.run_tests),
             self.define_from_variant("KokkosTools_ENABLE_MPI", "mpi"),
             self.define_from_variant("KokkosTools_ENABLE_PAPI", "papi"),
         ]

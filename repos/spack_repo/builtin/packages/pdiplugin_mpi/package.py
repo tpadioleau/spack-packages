@@ -23,8 +23,6 @@ class PdipluginMpi(CMakePackage):
     for v in Pdi.versions:
         version(str(v), **Pdi.versions[v])
 
-    variant("tests", default=False, description="Build tests")
-
     depends_on("c", type="build")
     depends_on("cxx", type="build")
 
@@ -43,7 +41,8 @@ class PdipluginMpi(CMakePackage):
     def cmake_args(self):
         return [
             "-DINSTALL_PDIPLUGINDIR:PATH={:s}".format(self.prefix.lib),
-            self.define_from_variant("BUILD_TESTING", "tests"),
+            self.define("BUILD_FORTRAN", False),
+            self.define("BUILD_TESTING", self.run_tests),
         ]
 
     def setup_run_environment(self, env: EnvironmentModifications) -> None:

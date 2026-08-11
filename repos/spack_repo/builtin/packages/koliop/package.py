@@ -42,7 +42,7 @@ class Koliop(CMakePackage):
             self.define("koliop_ASSERT_ENABLED", True),
             self.define("koliop_ASSUME_INPUT_BUFFERS_ARE_DEVICE_COMPATIBLE", True),
             self.define("koliop_BUILD_FORTRAN_INTERFACE", False),
-            self.define("koliop_BUILD_TESTING", False),
+            self.define("koliop_BUILD_TESTING", self.run_tests),
             self.define("koliop_CONSTANT_MEMORY_USAGE", False),
             self.define("koliop_ENABLE_Kokkos", "SYSTEM"),
             self.define("koliop_ENABLE_KokkosKernels", "SYSTEM"),
