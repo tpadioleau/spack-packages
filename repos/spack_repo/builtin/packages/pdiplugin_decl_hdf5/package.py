@@ -27,13 +27,13 @@ class PdipluginDeclHdf5(CMakePackage):
         version(str(v), **Pdi.versions[v])
 
     variant("benchs", default=False, description="Build benchmarks")
-    variant("fortran", default=True, description="Enable Fortran (for tests only)")
-    variant("tests", default=False, description="Build tests")
     variant("mpi", default=True, description="Enable parallel HDF5")
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
-    depends_on("fortran", type="build", when="+fortran")
+
+    for v in Pdi.versions:
+        depends_on(f"pdiplugin-mpi@{str(v)}", type="test", when=f"@{str(v)}+mpi")
 
     depends_on("cmake@3.22.1:", type=("build"), when="@1.10.0:")
     depends_on("cmake@3.16.3:", type=("build"))
@@ -54,9 +54,13 @@ class PdipluginDeclHdf5(CMakePackage):
         return [
             "-DINSTALL_PDIPLUGINDIR:PATH={:s}".format(self.prefix.lib),
             self.define_from_variant("BUILD_BENCHMARKING", "benchs"),
+            self.define("BUILD_FORTRAN", False),
             self.define_from_variant("BUILD_HDF5_PARALLEL", "mpi"),
-            self.define_from_variant("BUILD_TESTING", "tests"),
+            self.define("BUILD_TESTING", self.run_tests),
         ]
+
+    def setup_build_environment(self, env: EnvironmentModifications) -> None:
+        env.prepend_path("PRTE_MCA_rmaps_default_mapping_policy", ":oversubscribe")
 
     def setup_run_environment(self, env: EnvironmentModifications) -> None:
         env.prepend_path("PDI_PLUGIN_PATH", self.prefix.lib)
