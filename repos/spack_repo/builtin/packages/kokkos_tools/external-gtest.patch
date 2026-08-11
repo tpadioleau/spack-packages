@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 42d7cd1..40ddf63 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -299,7 +299,8 @@ endif()
+ # Tests
+ if(KokkosTools_ENABLE_TESTS)
+   enable_testing()
+-  include(cmake/BuildGTest.cmake)
++  # include(cmake/BuildGTest.cmake)
++  find_package(GTest 1.14 REQUIRED CONFIG)
+   add_subdirectory(tests)
+ endif()
+ 

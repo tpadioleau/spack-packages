@@ -81,7 +81,6 @@ class Paraconf(CMakePackage):
 
     variant("example", default=False, description="Build example")
     variant("fortran", default=True, description="Enable Fortran support")
-    variant("tests", default=False, description="Build tests")
     variant("shared", default=True, description="Build shared libraries rather than static ones")
 
     depends_on("c", type="build")
@@ -106,7 +105,7 @@ class Paraconf(CMakePackage):
     def cmake_args(self):
         return [
             self.define_from_variant("BUILD_SHARED_LIBS", "shared"),
-            self.define_from_variant("PARACONF_BUILD_EXAMPLE", "example"),
-            self.define_from_variant("PARACONF_BUILD_FORTRAN", "fortran"),
-            self.define_from_variant("PARACONF_BUILD_TESTING", "tests"),
+            self.define_from_variant("BUILD_EXAMPLE", "example"),
+            self.define_from_variant("BUILD_FORTRAN", "fortran"),
+            self.define("BUILD_TESTING", self.run_tests),
         ]
