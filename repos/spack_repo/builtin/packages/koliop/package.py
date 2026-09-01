@@ -48,6 +48,7 @@ class Koliop(CMakePackage):
             self.define("koliop_ENABLE_KokkosKernels", "SYSTEM"),
             self.define("koliop_ENABLE_LTO", False),
             self.define("koliop_FENCE_ON_OPERATOR_EXIT", False),
+            self.define("koliop_RUN_DEMONSTRATION_AS_TEST", False),
             self.define("koliop_UTILITY_FLATTEN_EXPECT_POW2_EXTENTS", False),
         ]
 
