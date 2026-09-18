@@ -92,6 +92,7 @@ class Kokkos(CMakePackage, CudaPackage, ROCmPackage):
     )
 
     depends_on("cxx", type="build")  # Kokkos requires a C++ compiler
+    depends_on("compiler-wrapper")
 
     # TODO new major: any new major needs to update this
     with when("@5:"):
