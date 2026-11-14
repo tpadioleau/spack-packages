@@ -12,13 +12,13 @@ class Mdspan(CMakePackage):
     """Extension of std::span to enable multidimensional arrays"""
 
     homepage = "https://github.com/kokkos/mdspan/tree/stable"
-    url = "https://github.com/kokkos/mdspan/archive/refs/tags/mdspan-0.6.0.zip"
+    url = "https://github.com/kokkos/mdspan/archive/refs/tags/5.3.0.tar.gz"
     git = "https://github.com/kokkos/mdspan.git"
 
     maintainers("tpadioleau", "nmm0")
 
     version("stable", branch="stable")
-    version("0.6.0", sha256="d6b7b9d4f472106df1d28729bd8383a8a7ea7938adf9f82d3be9c151344830d9")
+    version("5.3.0", sha256="ba71517536c646b9160c10e7d83e6aad5663e3289a1f619deb6a3760f252ffae")
 
     variant(
         "cxxstd", default="17", values=["14", "17", "20"], multi=False, description="C++ standard"
