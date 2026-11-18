@@ -105,7 +105,7 @@ class Paraconf(CMakePackage):
     def cmake_args(self):
         return [
             self.define_from_variant("BUILD_SHARED_LIBS", "shared"),
-            self.define_from_variant("BUILD_EXAMPLE", "example"),
-            self.define_from_variant("BUILD_FORTRAN", "fortran"),
-            self.define("BUILD_TESTING", self.run_tests),
+            self.define_from_variant("PARACONF_BUILD_EXAMPLE", "example"),
+            self.define_from_variant("PARACONF_BUILD_FORTRAN", "fortran"),
+            self.define("PARACONF_BUILD_TESTING", self.run_tests),
         ]
