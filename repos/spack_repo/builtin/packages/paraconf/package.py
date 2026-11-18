@@ -85,7 +85,8 @@ class Paraconf(CMakePackage):
 
     depends_on("c", type="build")
     depends_on("cxx", type="build", when="@1.0.3 +example")
-    depends_on("cxx", type="test", when="@1.2:")
+    # I would prefer cxx to be a test dependency but it failed to concretize in Spack 1.2.2
+    depends_on("cxx", type="build", when="@1.2:")
     depends_on("fortran", type="build", when="+fortran")
 
     depends_on("cmake@3.5:", type=("build"))

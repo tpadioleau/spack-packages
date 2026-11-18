@@ -31,7 +31,8 @@ class PdipluginDeclHdf5(CMakePackage):
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
-    # depends_on("fortran", type="test")
+    # I would prefer fortran to be a test dependency but it failed to concretize in Spack 1.2.2
+    depends_on("fortran", type="build")
 
     for v in Pdi.versions:
         depends_on(f"pdiplugin-mpi@{str(v)}", type="test", when=f"@{str(v)}+mpi")
@@ -45,7 +46,7 @@ class PdipluginDeclHdf5(CMakePackage):
     for v in Pdi.versions:
         depends_on("pdi@" + str(v), type=("link", "run"), when="@" + str(v))
     depends_on("pkgconfig", type=("build"))
-    # depends_on("pdi +fortran", type="test")
+    depends_on("pdi +fortran", type="test")
 
     root_cmakelists_dir = "plugins/decl_hdf5"
 
