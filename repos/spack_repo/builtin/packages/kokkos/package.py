@@ -467,6 +467,10 @@ class Kokkos(CMakePackage, CudaPackage, ROCmPackage):
             from_variant("BUILD_SHARED_LIBS", "shared"),
             from_variant("Kokkos_ENABLE_COMPILE_AS_CMAKE_LANGUAGE", "cmake_lang"),
         ]
+        if self.spec.satisfies("@5.3:"):
+            options.append(
+                self.define("Kokkos_ENABLE_MDSPAN_EXTERNAL", True)
+            )
 
         # TODO new major: update this
         if spec.satisfies("@5:"):
